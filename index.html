@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choice Maker</title>
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta property="og:image:alt" content="">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+      color: #444;
+      font-size: 2.5em;
+    }
+    .main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 1.2em;
+      padding: 30px;
+      background-color: #ffffff;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+    }
+    label {
+      font-size: 1.1em;
+      color: #555;
+    }
+    input {
+      margin: 10px 0;
+      padding: 10px;
+      width: 80%;
+      max-width: 400px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    button {
+      margin: 10px 5px;
+      padding: 10px 20px;
+      font-size: 1em;
+      color: #fff;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    button:hover {
+      background-color: #45a049;
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+    button#pick {
+      background-color: #007BFF;
+    }
+    button#pick:hover {
+      background-color: #0056b3;
+    }
+    h3 {
+      margin-top: 20px;
+      color: #555;
+    }
+    h4 {
+      color: #007BFF;
+      font-weight: bold;
+    }
+    p {
+      color: #666;
+      font-size: 1em;
+      margin-top: 10px;
+    }
+    button:last-of-type {
+      background-color: #FF6F61;
+    }
+    button:last-of-type:hover {
+      background-color: #e55548;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<h1>Let code decide for you!</h1>
+
+<div class="main">
+  <form onsubmit="event.preventDefault(); console.log('added'); document.getElementById('option').value = '';">
+    <label for="option">Enter Item:</label>
+    <input type="text" name="option" id="option" />
+    <br/>
+    <button onclick="mylist.push(document.getElementById('option').value);">Add</button>
+    <button id="pick" onclick="roll();">Decide</button>
+    <button onclick="location.reload();">Reset</button>
+    <br/>
+    <h3>Result:</h3> <h4 id='result'></h4> <br/>
+    <p id="msg"></p>
+  </form>
+</div>
+
+
+<button onclick="showList(mylist);">Show options entered</button>
+<p id="show"></p>
+
+<script>
+  let mylist = [];
+
+  function showList(lst) {
+    let result = "";
+    for (let i = 0; i < lst.length; i++) {
+      result += lst[i] + " | ";
+    }
+    document.getElementById("show").innerHTML = result;
+  }
+
+  function pullRandom(lst){
+    let index = Math.floor(Math.random() * lst.length);
+    let result = lst[index];
+    lst.splice(index, 1);
+    return result;
+  }
+
+  function roll(){
+    document.getElementById("result").innerHTML = pullRandom(mylist);
+    document.getElementById("pick").innerHTML = "Choose something else";
+    document.getElementById("msg").innerHTML = "Now that the choice was made for you, do you feel satisfied with it? With that knowledge, feel free to reroll";
+  }
+
+</script>
+
+</body>
+
+</html>
